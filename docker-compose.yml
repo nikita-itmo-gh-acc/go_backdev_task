@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  api:
+    container_name: backtest
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "0.0.0.0:4242:4242"
+    depends_on:
+      - db
+    volumes:
+      - .:/backtest
+    command: go run main.go
+  db:
+    container_name: db_container
+    image: postgres:alpine
+    hostname: postgres
+    environment:
+      POSTGRES_PASSWORD: aventador
+      POSTGRES_USER: postgres
+      POSTGRES_DB: auth_db
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+volumes:
+  postgres-db:

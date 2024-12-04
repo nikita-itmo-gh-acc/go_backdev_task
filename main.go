@@ -34,11 +34,13 @@ func main() {
 
 	home_handler := NewHomeHandler()
 	auth_handler := NewAuthHandler(db_conn)
+
 	mux := http.NewServeMux()
 	mux.Handle("/", home_handler)
 	mux.Handle("/protected", home_handler)
 	mux.Handle("/api/auth/generate-tokens", auth_handler)
 	mux.Handle("/api/auth/refresh-tokens", auth_handler)
+
 	logger.Info.Printf("Запуск сервера на %s", storage.GetFromEnv("HOST")+port)
 	http.ListenAndServe(port, mux)
 }
