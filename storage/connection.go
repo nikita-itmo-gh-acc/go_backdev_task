@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	host = "postgres"
+	host = "postgres" //change to localhost if running locally
 	port = "5432"
 )
 
